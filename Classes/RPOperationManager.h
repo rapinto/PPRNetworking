@@ -1,5 +1,5 @@
 //
-//  RPHTTPOperationManager.h
+//  RPOperationManager.h
 //
 //
 //  Created by Raphaël Pinto on 06/08/2015.
@@ -31,11 +31,11 @@
 
 
 
-@interface RPHTTPOperationManager : OAuth1OperationManager
+@interface RPOperationManager : OAuth1OperationManager
 
 
 
-+ (RPHTTPOperationManager*)sharedInstance;
+@property (strong, nonatomic) NSMutableArray* operationManagerDelegates;
 
 
 

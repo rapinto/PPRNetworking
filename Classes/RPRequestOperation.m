@@ -1,8 +1,8 @@
 //
-//  RPHTTPOperationManager.m
+//  RPRequestOperation.m
 //
 //
-//  Created by Raphaël Pinto on 06/08/2015.
+//  Created by Raphaël Pinto on 07/08/2015.
 //
 // The MIT License (MIT)
 // Copyright (c) 2015 Raphael Pinto.
@@ -27,57 +27,48 @@
 
 
 
-#import "RPHTTPOperationManager.h"
+#import "RPRequestOperation.h"
 
 
 
-@implementation RPHTTPOperationManager
+@implementation RPRequestOperation
 
 
 
 #pragma mark -
-#pragma mark Singleton Methods
+#pragma mark Operation Steps Methods
 
 
 
-static RPHTTPOperationManager* _sharedInstance = nil;
-static dispatch_once_t onceToken = 0;
-
-
-
-
-+ (RPHTTPOperationManager*)sharedInstance
+- (void)start
 {
-    static RPHTTPOperationManager *sharedInstance = nil;
+    self.startTime = CFAbsoluteTimeGetCurrent();
     
-    dispatch_once(&onceToken, ^{
-        sharedInstance = [[[self class] alloc] init];
-    });
-    return sharedInstance;
+    [super start];
 }
 
 
-
-#pragma mark -
-#pragma mark Data Management Methods
-
-
-
-+ (void)cancelRequestWithMethod:(NSString*)_Method url:(NSString*)_URL
+- (void)setCompletionBlockWithSuccess:(void (^)(AFHTTPRequestOperation *, id))success
+                              failure:(void (^)(AFHTTPRequestOperation *, NSError *))failure
 {
-    for (NSOperation *anOperation in [RPHTTPOperationManager sharedInstance].operationQueue.operations)
+    [super setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject)
     {
-        if([anOperation isKindOfClass:[AFHTTPRequestOperation class]])
+        _totalTime = CFAbsoluteTimeGetCurrent() - _startTime;
+        
+        if (success)
         {
-            AFHTTPRequestOperation* requestOperation = (AFHTTPRequestOperation*)anOperation;
-            
-            if ([requestOperation.request.HTTPMethod isEqualToString:_Method] &&
-                [[requestOperation.request.URL absoluteString] isEqualToString:_URL])
-            {
-                [anOperation cancel];
-            }
+            success(operation, operation.responseObject);
         }
     }
+                                 failure:^(AFHTTPRequestOperation *operation, NSError* error)
+     {
+         _totalTime = CFAbsoluteTimeGetCurrent() - _startTime;
+         
+         if (failure)
+         {
+             failure(operation, error);
+         }
+     }];
 }
 
 
