@@ -96,6 +96,8 @@
     operation.credential = self.credential;
     operation.securityPolicy = self.securityPolicy;
     
+    __weak __typeof(self)weakSelf = self;
+    
     
     [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject)
      {
@@ -103,7 +105,7 @@
          {
              if ([anObject conformsToProtocol:@protocol(RPOperationManagerDelegate)])
              {
-                 [anObject operationManager:self
+                 [anObject operationManager:weakSelf
                         didSucceedOperation:(RPRequestOperation*)operation
                          withResponseObject:responseObject];
              }
@@ -120,7 +122,7 @@
          {
              if ([anObject conformsToProtocol:@protocol(RPOperationManagerDelegate)])
              {
-                 [anObject operationManager:self
+                 [anObject operationManager:weakSelf
                            didFailOperation:(RPRequestOperation*)operation
                                   withError:error];
              }
@@ -136,7 +138,7 @@
     operation.completionQueue = self.completionQueue;
     operation.completionGroup = self.completionGroup;
     
-    return [operation autorelease];
+    return operation;
 }
 
 
