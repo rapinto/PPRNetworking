@@ -51,9 +51,12 @@
 - (void)setCompletionBlockWithSuccess:(void (^)(AFHTTPRequestOperation *, id))success
                               failure:(void (^)(AFHTTPRequestOperation *, NSError *))failure
 {
+    
+    __weak __typeof(self)weakSelf = self;
+    
     [super setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject)
     {
-        _totalTime = CFAbsoluteTimeGetCurrent() - _startTime;
+        weakSelf.totalTime = CFAbsoluteTimeGetCurrent() - weakSelf.startTime;
         
         if (success)
         {
@@ -62,7 +65,7 @@
     }
                                  failure:^(AFHTTPRequestOperation *operation, NSError* error)
      {
-         _totalTime = CFAbsoluteTimeGetCurrent() - _startTime;
+         weakSelf.totalTime = CFAbsoluteTimeGetCurrent() - weakSelf.startTime;
          
          if (failure)
          {
