@@ -42,9 +42,9 @@
 - (void)operationManager:(RPOperationManager*)operationManager
      didSucceedOperation:(RPRequestOperation*)operation
       withResponseObject:(id)responseObject;
-- (void)operationManager:(RPOperationManager*)operationManager
-        didFailOperation:(RPRequestOperation*)operation
-               withError:(NSError*)error;
+- (BOOL)isHandledOperationManager:(RPOperationManager*)operationManager
+                 didFailOperation:(RPRequestOperation*)operation
+                        withError:(NSError*)error;
 
 
 @end

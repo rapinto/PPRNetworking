@@ -118,19 +118,33 @@
      }
                                      failure:^(AFHTTPRequestOperation *operation, NSError* error)
      {
+         BOOL lHandled = NO;
+         
          for(id anObject in _operationManagerDelegates)
          {
              if ([anObject conformsToProtocol:@protocol(RPOperationManagerDelegate)])
              {
-                 [anObject operationManager:weakSelf
-                           didFailOperation:(RPRequestOperation*)operation
-                                  withError:error];
+                 lHandled = [anObject isHandledOperationManager:weakSelf
+                                               didFailOperation:(RPRequestOperation*)operation
+                                                      withError:error];
              }
          }
          
          if (failure)
          {
-             failure(operation, error);
+             if (lHandled)
+             {
+                 NSError *lError = [NSError errorWithDomain:@"RPNetworkingErrorDomain"
+                                                      code:409
+                                                  userInfo:nil];
+                 
+                 
+                 failure(operation, lError);
+             }
+             else
+             {
+                 failure(operation, error);
+             }
          }
      }];
     
