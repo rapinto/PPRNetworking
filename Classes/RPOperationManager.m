@@ -28,13 +28,33 @@
 
 
 #import "RPOperationManager.h"
-#import "OAuth1OperationManager.h"
 #import "RPRequestOperation.h"
 #import "RPOperationManagerDelegate.h"
 
 
 
 @implementation RPOperationManager
+
+
+
+static dispatch_once_t onceToken = 0;
+
+
+
+#pragma mark -
+#pragma mark Singleton Methods
+
+
+
++ (RPOperationManager*)sharedInstance
+{
+    static RPOperationManager *sharedInstance = nil;
+    
+    dispatch_once(&onceToken, ^{
+        sharedInstance = [[[self class] alloc] init];
+    });
+    return sharedInstance;
+}
 
 
 

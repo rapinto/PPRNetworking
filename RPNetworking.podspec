@@ -16,7 +16,7 @@ Pod::Spec.new do |s|
   #
 
   s.name         = "RPNetworking"
-  s.version      = "1.0.4"
+  s.version      = "1.0.5"
   s.summary      = "OAuth1 AFNetworking overlay that add request cancelling methods and operation delegates"
 
   s.description  = <<-DESC
@@ -64,8 +64,8 @@ Pod::Spec.new do |s|
   #  the deployment target. You can optionally include the target after the platform.
   #
 
-  # s.platform     = :ios
-  s.platform     = :ios, "7.0"
+    s.watchos.deployment_target = "2.0"
+    s.ios.deployment_target = "7.0"
 
   #  When using multiple platforms
   # s.ios.deployment_target = "5.0"
@@ -79,7 +79,7 @@ Pod::Spec.new do |s|
   #  Supports git, hg, bzr, svn and HTTP.
   #
 
-  s.source       = { :git => "https://github.com/rapinto/RPNetworking.git", :tag => "1.0.4" }
+  s.source       = { :git => "https://github.com/rapinto/RPNetworking.git", :tag => s.version }
 
 
   # ――― Source Code ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
@@ -132,7 +132,7 @@ Pod::Spec.new do |s|
   s.requires_arc = true
 
   # s.xcconfig = { "HEADER_SEARCH_PATHS" => "$(SDKROOT)/usr/include/libxml2" }
-  s.dependency "AFNetworking", '~> 2.5'
-  s.dependency 'OAuth1AFNetworking', '~> 1.0.14'
+    s.watchos.dependency "AFNetworking", "~> 2.5"
+    s.ios.dependency "AFNetworking", "~> 2.5"
 
 end

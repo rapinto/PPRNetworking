@@ -27,20 +27,23 @@
 
 
 
-#import "OAuth1OperationManager.h"
+#import "AFHTTPRequestOperationManager.h"
 
 
 
-@interface RPOperationManager : OAuth1OperationManager
+@interface RPOperationManager : AFHTTPRequestOperationManager
 
 
 
 @property (strong, nonatomic) NSMutableArray* operationManagerDelegates;
 
 
+#pragma mark - Singleton Methods
++ (RPOperationManager*)sharedInstance;
 
+
+#pragma mark - Static Methods
 + (void)cancelRequestWithMethod:(NSString*)_Method url:(NSString*)_URL;
-
 
 
 @end
