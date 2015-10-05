@@ -16,7 +16,7 @@ Pod::Spec.new do |s|
   #
 
   s.name         = "RPNetworking"
-  s.version      = "1.0.5"
+  s.version      = "1.0.6"
   s.summary      = "OAuth1 AFNetworking overlay that add request cancelling methods and operation delegates"
 
   s.description  = <<-DESC
@@ -64,7 +64,6 @@ Pod::Spec.new do |s|
   #  the deployment target. You can optionally include the target after the platform.
   #
 
-    s.watchos.deployment_target = "2.0"
     s.ios.deployment_target = "7.0"
 
   #  When using multiple platforms
@@ -132,7 +131,6 @@ Pod::Spec.new do |s|
   s.requires_arc = true
 
   # s.xcconfig = { "HEADER_SEARCH_PATHS" => "$(SDKROOT)/usr/include/libxml2" }
-    s.watchos.dependency "AFNetworking", "~> 2.5"
     s.ios.dependency "AFNetworking", "~> 2.5"
 
 end
