@@ -28,7 +28,7 @@
 
 
 
-#import <AFNetworking/AFHTTPSessionManager.h>
+#import "AFHTTPSessionManager.h"
 #import <Foundation/Foundation.h>
 
 

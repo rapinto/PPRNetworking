@@ -16,7 +16,7 @@ Pod::Spec.new do |s|
   #
 
   s.name         = "RPNetworking"
-  s.version      = "2.0.16"
+  s.version      = "2.0.18"
   s.summary      = "OAuth1 AFNetworking overlay that add request cancelling methods and operation delegates"
 
   s.description  = <<-DESC
@@ -112,6 +112,7 @@ Pod::Spec.new do |s|
 
     s.requires_arc = true
 
-    s.dependency "AFNetworking", "~> 2.5"
+    s.ios.dependency "AFNetworking", "~> 2.5"
+    s.watchos.dependency "AFNetworking", "~> 2.5"
 
 end
