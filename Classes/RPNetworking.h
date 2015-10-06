@@ -1,8 +1,8 @@
 //
-//  RPOperationManager.h
+//  RPNetworking.h
 //
 //
-//  Created by Raphaël Pinto on 06/08/2015.
+//  Created by Raphaël Pinto on 06/10/2015.
 //
 // The MIT License (MIT)
 // Copyright (c) 2015 Raphael Pinto.
@@ -27,23 +27,15 @@
 
 
 
-#import "AFHTTPRequestOperationManager.h"
+#ifndef RPNetworking_h
+#define RPNetworking_h
 
 
-
-@interface RPOperationManager : AFHTTPRequestOperationManager
-
-
-
-@property (strong, nonatomic) NSMutableArray* operationManagerDelegates;
-
-
-#pragma mark - Singleton Methods
-+ (RPOperationManager*)sharedInstance;
+    #import "RPHTTPManagerDelegate.h"
+    #import "RPHTTPSessionManager.h"
+#if !TARGET_OS_WATCH
+    #import "RPHTTPOperationManager.h"
+#endif
 
 
-#pragma mark - Static Methods
-+ (void)cancelRequestWithMethod:(NSString*)_Method url:(NSString*)_URL;
-
-
-@end
+#endif /* RPNetworking_h */

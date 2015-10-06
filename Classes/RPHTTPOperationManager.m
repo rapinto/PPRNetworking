@@ -1,5 +1,5 @@
 //
-//  RPOperationManager.m
+//  RPHTTPOperationManager.m
 //
 //
 //  Created by Raphaël Pinto on 06/08/2015.
@@ -27,12 +27,12 @@
 
 
 
-#import "RPOperationManager.h"
+#import "RPHTTPOperationManager.h"
 #import "RPHTTPManagerDelegate.h"
 
 
 
-@implementation RPOperationManager
+@implementation RPHTTPOperationManager
 
 
 
@@ -45,9 +45,9 @@ static dispatch_once_t onceToken = 0;
 
 
 
-+ (RPOperationManager*)sharedInstance
++ (RPHTTPOperationManager*)sharedInstance
 {
-    static RPOperationManager *sharedInstance = nil;
+    static RPHTTPOperationManager *sharedInstance = nil;
     
     dispatch_once(&onceToken, ^{
         sharedInstance = [[[self class] alloc] init];
@@ -83,7 +83,7 @@ static dispatch_once_t onceToken = 0;
 
 + (void)cancelRequestWithMethod:(NSString*)_Method url:(NSString*)_URL
 {
-    for (NSOperation *anOperation in [RPOperationManager sharedInstance].operationQueue.operations)
+    for (NSOperation *anOperation in [RPHTTPOperationManager sharedInstance].operationQueue.operations)
     {
         if([anOperation isKindOfClass:[AFHTTPRequestOperation class]])
         {
@@ -108,14 +108,12 @@ static dispatch_once_t onceToken = 0;
 - (AFHTTPRequestOperation *)HTTPRequestOperationWithRequest:(NSURLRequest *)request
                                                     success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
                                                     failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure
-{
+{    
     AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
     operation.responseSerializer = self.responseSerializer;
     operation.shouldUseCredentialStorage = self.shouldUseCredentialStorage;
     operation.credential = self.credential;
     operation.securityPolicy = self.securityPolicy;
-    
-    __weak __typeof(self)weakSelf = self;
     
     __block CFAbsoluteTime lTotalTime = CFAbsoluteTimeGetCurrent();
     

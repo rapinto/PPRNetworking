@@ -1,8 +1,8 @@
 //
-//  RPHTTPManagerDelegate.m
+//  RPHTTPSessionManager.h
 //
 //
-//  Created by Raphaël Pinto on 06/10/2015.
+//  Created by Raphaël Pinto on 29/09/2015.
 //
 // The MIT License (MIT)
 // Copyright (c) 2015 Raphael Pinto.
@@ -27,31 +27,28 @@
 
 
 
-#ifndef RPHTTPSessionManagerDelegate_h
-#define RPHTTPSessionManagerDelegate_h
 
-
-
+#import "AFNetworking.h"
 #import <Foundation/Foundation.h>
 
 
 
-@protocol RPHTTPManagerDelegate <NSObject>
+@interface RPHTTPSessionManager : AFHTTPSessionManager
 
 
-- (void)requestDidSucceed:(NSURLRequest*)request
-             httpResponse:(NSHTTPURLResponse*)response
-           responseObject:(id)responseObject
-         requestTotalTime:(CFAbsoluteTime)totalTime;
-- (BOOL)isHandledReequestDidFail:(NSURLRequest*)request
-                    httpResponse:(NSHTTPURLResponse*)response
-                  responseObject:(id)responseObject
-                           error:(NSError*)error
-                requestTotalTime:(CFAbsoluteTime)totalTime;
+
+@property (strong, nonatomic) NSMutableArray* operationManagerDelegates;
+
+
+
+#pragma mark - Singleton Methods
++ (RPHTTPSessionManager*)sharedInstance;
+
+
+
+#pragma mark - Static Methods
++ (void)cancelRequestWithMethod:(NSString*)_Method url:(NSString*)_URL;
+
 
 
 @end
-
-
-
-#endif /* RPHTTPManagerDelegate_h */
