@@ -16,7 +16,7 @@ Pod::Spec.new do |s|
   #
 
   s.name         = "RPNetworking"
-  s.version      = "2.0.19"
+  s.version      = "2.0.20"
   s.summary      = "OAuth1 AFNetworking overlay that add request cancelling methods and operation delegates"
 
   s.description  = <<-DESC
@@ -64,7 +64,7 @@ Pod::Spec.new do |s|
   #  the deployment target. You can optionally include the target after the platform.
   #
 
-    s.watchos.deployment_target = '2.0'
+# s.watchos.deployment_target = '2.0'
     s.ios.deployment_target = '7.0'
 
 
@@ -112,7 +112,7 @@ Pod::Spec.new do |s|
 
     s.requires_arc = true
 
-    s.ios.dependency 'AFNetworking', :git => 'https://github.com/AFNetworking/AFNetworking.git', branch: 'master'
-    s.watchos.dependency 'AFNetworking', :git => 'https://github.com/AFNetworking/AFNetworking.git', branch: 'master'
+    s.dependency 'AFNetworking', :git => 'https://github.com/AFNetworking/AFNetworking.git', branch: 'master'
+#s.watchos.dependency 'AFNetworking', :git => 'https://github.com/AFNetworking/AFNetworking.git', branch: 'master'
 
 end
