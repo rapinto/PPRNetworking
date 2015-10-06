@@ -16,7 +16,7 @@ Pod::Spec.new do |s|
   #
 
   s.name         = "RPNetworking"
-  s.version      = "2.0.6"
+  s.version      = "2.0.7"
   s.summary      = "OAuth1 AFNetworking overlay that add request cancelling methods and operation delegates"
 
   s.description  = <<-DESC
@@ -96,7 +96,7 @@ s.source       = { :git => "https://github.com/rapinto/RPNetworking.git", :tag =
 
         ss.ios.dependency "AFNetworking", "~> 2.5"
 
-        ss.source_files = 'Classes/RPHTTPOperationManager.{h,m}'
+        ss.source_files = 'Classes/RPHTTPOperationManager.{h,m}', 'Classes/RPHTTPManagerDelegate.h'
     end
 
     s.subspec 'SessionManager' do |ss|
@@ -105,7 +105,7 @@ s.source       = { :git => "https://github.com/rapinto/RPNetworking.git", :tag =
 
         ss.ios.dependency "AFNetworking", "~> 2.5"
 
-        ss.source_files = 'Classes/RPHTTPSessionManager.{h,m}'
+        ss.source_files = 'Classes/RPHTTPSessionManager.{h,m}', 'Classes/RPHTTPManagerDelegate.h'
     end
 
 
