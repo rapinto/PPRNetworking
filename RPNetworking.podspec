@@ -16,7 +16,7 @@ Pod::Spec.new do |s|
   #
 
   s.name         = "RPNetworking"
-  s.version      = "2.0.14"
+  s.version      = "2.0.15"
   s.summary      = "OAuth1 AFNetworking overlay that add request cancelling methods and operation delegates"
 
   s.description  = <<-DESC
@@ -74,39 +74,33 @@ Pod::Spec.new do |s|
   #  Supports git, hg, bzr, svn and HTTP.
   #
 
-s.source       = { :git => "https://github.com/rapinto/RPNetworking.git", :tag => s.version, :submodules => true }
+    s.source = { :git => "https://github.com/rapinto/RPNetworking.git", :tag => s.version, :submodules => true }
 
 
   # ――― Source Code ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
-  #
-  #  CocoaPods is smart about how it includes source code. For source files
-  #  giving a folder will include any swift, h, m, mm, c & cpp files.
-  #  For header files it will include any header in the folder.
-  #  Not including the public_header_files will make all headers public.
-  #
 
     s.public_header_files = 'Classes/RPNetworking.h'
     s.source_files = 'Classes/RPNetworking.h'
 
 
-# ――― Sub Specs ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
+  # ――― Sub Specs ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
 
     s.subspec 'OperationManager' do |ss|
         ss.ios.deployment_target = '7.0'
-
-        ss.ios.dependency "AFNetworking", "~> 2.5"
-
-        ss.source_files = 'Classes/RPHTTPOperationManager.{h,m}', 'Classes/RPHTTPSessionManager.{h,m}', 'Classes/RPHTTPManagerDelegate.h', 'Classes/RPNetworking.h'
+        ss.ios.source_files = 'Classes/RPHTTPOperationManager.{h,m}'
+        ss.ios.public_header_files = 'Classes/RPHTTPOperationManager.h'
+        ss.ios.dependency 'RPNetworking/ManagerDelegate'
     end
 
     s.subspec 'SessionManager' do |ss|
-        ss.ios.deployment_target = '7.0'
-        ss.watchos.deployment_target = '2.0'
+        ss.source_files = 'Classes/RPHTTPSessionManager.{h,m}'
+        ss.public_header_files = 'Classes/RPHTTPSessionManager.h'
+        ss.dependency 'RPNetworking/ManagerDelegate'
+    end
 
-        ss.ios.dependency "AFNetworking", "~> 2.5"
-        ss.watchos.dependency "AFNetworking", "~> 2.5"
-
-        ss.source_files = 'Classes/RPHTTPSessionManager.{h,m}', 'Classes/RPHTTPManagerDelegate.h', 'Classes/RPNetworking.h'
+    s.subspec 'ManagerDelegate' do |ss|
+        ss.source_files = 'Classes/RPHTTPManagerDelegate.h'
+        ss.public_header_files = 'Classes/RPHTTPManagerDelegate.h'
     end
 
 
@@ -116,6 +110,8 @@ s.source       = { :git => "https://github.com/rapinto/RPNetworking.git", :tag =
   #  where they will only apply to your library. If you depend on other Podspecs
   #  you can include multiple dependencies to ensure it works.
 
-  s.requires_arc = true
+    s.requires_arc = true
+
+    s.dependency "AFNetworking", "~> 2.5"
 
 end
