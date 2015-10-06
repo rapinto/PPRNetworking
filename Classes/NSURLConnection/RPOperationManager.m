@@ -109,7 +109,7 @@ static dispatch_once_t onceToken = 0;
                                                     success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
                                                     failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure
 {
-    RPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
+    AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
     operation.responseSerializer = self.responseSerializer;
     operation.shouldUseCredentialStorage = self.shouldUseCredentialStorage;
     operation.credential = self.credential;
@@ -153,7 +153,7 @@ static dispatch_once_t onceToken = 0;
                  lHandled = [anObject isHandledReequestDidFail:request
                                                   httpResponse:operation.response
                                                 responseObject:operation.responseObject
-                                                     withError:error
+                                                         error:error
                                               requestTotalTime:lTotalTime];
              }
          }
