@@ -16,7 +16,7 @@ Pod::Spec.new do |s|
   #
 
   s.name         = "RPNetworking"
-  s.version      = "2.0.5"
+  s.version      = "2.0.6"
   s.summary      = "OAuth1 AFNetworking overlay that add request cancelling methods and operation delegates"
 
   s.description  = <<-DESC
@@ -85,8 +85,8 @@ s.source       = { :git => "https://github.com/rapinto/RPNetworking.git", :tag =
   #  Not including the public_header_files will make all headers public.
   #
 
-    s.public_header_files = 'Classes/RPHTTPManagerDelegate.h'
-    s.source_files = 'Classes/RPHTTPManagerDelegate.h'
+    s.public_header_files = 'Classes/RPNetworking.h'
+    s.source_files = 'Classes/RPNetworking.h'
 
 
 # ――― Sub Specs ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
