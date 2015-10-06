@@ -27,8 +27,8 @@
 
 
 
-#ifndef RPHTTPSessionManagerDelegate_h
-#define RPHTTPSessionManagerDelegate_h
+#ifndef RPHTTPManagerDelegate_h
+#define RPHTTPManagerDelegate_h
 
 
 
