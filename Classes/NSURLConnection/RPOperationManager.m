@@ -28,8 +28,7 @@
 
 
 #import "RPOperationManager.h"
-#import "RPRequestOperation.h"
-#import "RPOperationManagerDelegate.h"
+#import "RPHTTPManagerDelegate.h"
 
 
 
@@ -110,7 +109,7 @@ static dispatch_once_t onceToken = 0;
                                                     success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
                                                     failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure
 {
-    RPRequestOperation *operation = [[RPRequestOperation alloc] initWithRequest:request];
+    RPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
     operation.responseSerializer = self.responseSerializer;
     operation.shouldUseCredentialStorage = self.shouldUseCredentialStorage;
     operation.credential = self.credential;
@@ -118,16 +117,21 @@ static dispatch_once_t onceToken = 0;
     
     __weak __typeof(self)weakSelf = self;
     
+    __block CFAbsoluteTime lTotalTime = CFAbsoluteTimeGetCurrent();
+    
     
     [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject)
      {
+         lTotalTime = CFAbsoluteTimeGetCurrent() - lTotalTime;
+         
          for(id anObject in _operationManagerDelegates)
          {
-             if ([anObject conformsToProtocol:@protocol(RPOperationManagerDelegate)])
+             if ([anObject conformsToProtocol:@protocol(RPHTTPManagerDelegate)])
              {
-                 [anObject operationManager:weakSelf
-                        didSucceedOperation:(RPRequestOperation*)operation
-                         withResponseObject:responseObject];
+                 [anObject requestDidSucceed:request
+                                httpResponse:operation.response
+                              responseObject:responseObject
+                            requestTotalTime:lTotalTime];
              }
          }
          
@@ -138,15 +142,19 @@ static dispatch_once_t onceToken = 0;
      }
                                      failure:^(AFHTTPRequestOperation *operation, NSError* error)
      {
+         lTotalTime = CFAbsoluteTimeGetCurrent() - lTotalTime;
+         
          BOOL lHandled = NO;
          
          for(id anObject in _operationManagerDelegates)
          {
-             if ([anObject conformsToProtocol:@protocol(RPOperationManagerDelegate)])
+             if ([anObject conformsToProtocol:@protocol(RPHTTPManagerDelegate)])
              {
-                 lHandled = [anObject isHandledOperationManager:weakSelf
-                                               didFailOperation:(RPRequestOperation*)operation
-                                                      withError:error];
+                 lHandled = [anObject isHandledReequestDidFail:request
+                                                  httpResponse:operation.response
+                                                responseObject:operation.responseObject
+                                                     withError:error
+                                              requestTotalTime:lTotalTime];
              }
          }
          

@@ -16,7 +16,7 @@ Pod::Spec.new do |s|
   #
 
   s.name         = "RPNetworking"
-  s.version      = "1.0.6"
+  s.version      = "2.0.0"
   s.summary      = "OAuth1 AFNetworking overlay that add request cancelling methods and operation delegates"
 
   s.description  = <<-DESC
@@ -64,12 +64,8 @@ Pod::Spec.new do |s|
   #  the deployment target. You can optionally include the target after the platform.
   #
 
-    s.ios.deployment_target = "7.0"
-
-  #  When using multiple platforms
-  # s.ios.deployment_target = "5.0"
-  # s.osx.deployment_target = "10.7"
-  # s.watchos.deployment_target = "2.0"
+    s.watchos.deployment_target = '2.0'
+    s.ios.deployment_target = '7.0'
 
 
   # ――― Source Location ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
@@ -78,7 +74,7 @@ Pod::Spec.new do |s|
   #  Supports git, hg, bzr, svn and HTTP.
   #
 
-  s.source       = { :git => "https://github.com/rapinto/RPNetworking.git", :tag => s.version }
+s.source       = { :git => "https://github.com/rapinto/RPNetworking.git", :tag => s.version, :submodules => true }
 
 
   # ――― Source Code ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
@@ -89,37 +85,27 @@ Pod::Spec.new do |s|
   #  Not including the public_header_files will make all headers public.
   #
 
-  s.source_files  = "Classes", "Classes/*.{h,m}"
-  s.exclude_files = "Classes/Exclude"
-
-  # s.public_header_files = "Classes/**/*.h"
+  s.source_files  = "Classes/RPHTTPManagerDelegate.h"
 
 
-  # ――― Resources ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
-  #
-  #  A list of resources included with the Pod. These are copied into the
-  #  target bundle with a build phase script. Anything else will be cleaned.
-  #  You can preserve files from being cleaned, please don't preserve
-  #  non-essential files like tests, examples and documentation.
-  #
+# ――― Sub Specs ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
 
-  # s.resource  = "icon.png"
-  # s.resources = "Resources/*.png"
+    s.subspec 'NSURLConnection' do |ss|
+        ss.ios.deployment_target = '7.0'
 
-  # s.preserve_paths = "FilesToSave", "MoreFilesToSave"
+        ss.ios.dependency "AFNetworking", "~> 2.5"
 
+        ss.source_files = 'Classes/NSURLConnection/RPOperationManager.{h,m}'
+    end
 
-  # ――― Project Linking ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
-  #
-  #  Link your library with frameworks, or libraries. Libraries do not include
-  #  the lib prefix of their name.
-  #
+    s.subspec 'NSURLSession' do |ss|
+        ss.ios.deployment_target = '7.0'
+        s.ios.deployment_target = '7.0'
 
-  # s.framework  = "SomeFramework"
-  # s.frameworks = "SomeFramework", "AnotherFramework"
+        ss.ios.dependency "AFNetworking", "~> 2.5"
 
-  # s.library   = "iconv"
-  # s.libraries = "iconv", "xml2"
+        ss.source_files = 'Classes/NSURLConnection/RPHTTPSessionManager.{h,m}'
+    end
 
 
   # ――― Project Settings ――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
@@ -129,8 +115,5 @@ Pod::Spec.new do |s|
   #  you can include multiple dependencies to ensure it works.
 
   s.requires_arc = true
-
-  # s.xcconfig = { "HEADER_SEARCH_PATHS" => "$(SDKROOT)/usr/include/libxml2" }
-    s.ios.dependency "AFNetworking", "~> 2.5"
 
 end
