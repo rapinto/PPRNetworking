@@ -28,9 +28,6 @@
 
 
 #import "RPHTTPSessionManager.h"
-#import "Constants.h"
-#import "RPWatchRequestSerialization.h"
-#import "RPSessionLogManager.h"
 #import "RPHTTPManagerDelegate.h"
 
 
@@ -78,7 +75,7 @@ static dispatch_once_t onceToken = 0;
 }
 
 
-- (instancetype)initWithBaseURL:(NSURL *)url
+/*- (instancetype)initWithBaseURL:(NSURL *)url
 {
     self = [super initWithBaseURL:url];
     
@@ -99,7 +96,7 @@ static dispatch_once_t onceToken = 0;
     }
     
     return self;
-}
+}*/
 
 
 
