@@ -30,12 +30,10 @@
 #ifndef RPNetworking_h
 #define RPNetworking_h
 
-
     #import "RPHTTPManagerDelegate.h"
     #import "RPHTTPSessionManager.h"
 #if !TARGET_OS_WATCH
     #import "RPHTTPOperationManager.h"
 #endif
-
 
 #endif /* RPNetworking_h */
