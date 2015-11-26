@@ -1,5 +1,5 @@
 //
-//  RPNetworking.h
+//  PPRHTTPManagerDelegate.m
 //
 //
 //  Created by Raphaël Pinto on 06/10/2015.
@@ -26,14 +26,30 @@
 // THE SOFTWARE.
 
 
+#ifndef PPRHTTPManagerDelegate_h
+#define PPRHTTPManagerDelegate_h
 
-#ifndef RPNetworking_h
-#define RPNetworking_h
 
-    #import "RPHTTPManagerDelegate.h"
-    #import "RPHTTPSessionManager.h"
-#if !TARGET_OS_WATCH
-    #import "RPHTTPOperationManager.h"
-#endif
+#import <Foundation/Foundation.h>
 
-#endif /* RPNetworking_h */
+
+@protocol PPRHTTPManagerDelegate <NSObject>
+
+
+- (void)requestDidSucceed:(NSURLRequest*)request
+             httpResponse:(NSHTTPURLResponse*)response
+           responseObject:(id)responseObject
+         requestTotalTime:(CFAbsoluteTime)totalTime;
+
+- (BOOL)isHandledReequestDidFail:(NSURLRequest*)request
+                    httpResponse:(NSHTTPURLResponse*)response
+                  responseObject:(id)responseObject
+                           error:(NSError*)error
+                requestTotalTime:(CFAbsoluteTime)totalTime;
+
+
+@end
+
+
+#endif /* RPHTTPManagerDelegate_h */
+

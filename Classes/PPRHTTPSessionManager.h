@@ -1,5 +1,5 @@
 //
-//  RPHTTPSessionManager.h
+//  PPRHTTPSessionManager.h
 //
 //
 //  Created by Raphaël Pinto on 29/09/2015.
@@ -26,29 +26,22 @@
 // THE SOFTWARE.
 
 
-
-
 #import "AFHTTPSessionManager.h"
 #import <Foundation/Foundation.h>
 
 
-
-@interface RPHTTPSessionManager : AFHTTPSessionManager
-
+@interface PPRHTTPSessionManager : AFHTTPSessionManager
 
 
 @property (strong, nonatomic) NSMutableArray* operationManagerDelegates;
 
 
-
 #pragma mark - Singleton Methods
-+ (RPHTTPSessionManager*)sharedInstance;
-
++ (PPRHTTPSessionManager*)sharedInstance;
 
 
 #pragma mark - Static Methods
 + (void)cancelRequestWithMethod:(NSString*)_Method url:(NSString*)_URL;
-
 
 
 @end

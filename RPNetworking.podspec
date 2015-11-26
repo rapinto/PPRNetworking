@@ -16,7 +16,7 @@ Pod::Spec.new do |s|
   #
 
   s.name         = "RPNetworking"
-  s.version      = "2.0.23"
+  s.version      = "3.0.0"
   s.summary      = "OAuth1 AFNetworking overlay that add request cancelling methods and operation delegates"
 
   s.description  = <<-DESC
@@ -85,13 +85,6 @@ Pod::Spec.new do |s|
 
   # ――― Sub Specs ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
 
-    s.subspec 'OperationManager' do |ss|
-        ss.ios.deployment_target = '7.0'
-        ss.ios.source_files = 'Classes/RPHTTPOperationManager.{h,m}'
-        ss.ios.public_header_files = 'Classes/RPHTTPOperationManager.h'
-        ss.ios.dependency 'RPNetworking/ManagerDelegate'
-    end
-
     s.subspec 'SessionManager' do |ss|
         ss.source_files = 'Classes/RPHTTPSessionManager.{h,m}'
         ss.public_header_files = 'Classes/RPHTTPSessionManager.h'
@@ -112,6 +105,6 @@ Pod::Spec.new do |s|
 
     s.requires_arc = true
 
-    s.dependency "AFNetworking", "2.6.1"
+    s.dependency "AFNetworking", '~> 3.0'
 
 end

@@ -1,5 +1,5 @@
 //
-//  RPHTTPSessionManager.m
+//  PPRHTTPSessionManager.m
 //
 //
 //  Created by Raphaël Pinto on 29/09/2015.
@@ -26,28 +26,22 @@
 // THE SOFTWARE.
 
 
-
-#import "RPHTTPSessionManager.h"
-#import "RPHTTPManagerDelegate.h"
-
+#import "PPRHTTPSessionManager.h"
+#import "PPRHTTPManagerDelegate.h"
 
 
-@implementation RPHTTPSessionManager
-
+@implementation PPRHTTPSessionManager
 
 
 static dispatch_once_t onceToken = 0;
 
 
-
-#pragma mark -
-#pragma mark Singleton Methods
+#pragma mark - Singleton Methods
 
 
-
-+ (RPHTTPSessionManager*)sharedInstance
++ (PPRHTTPSessionManager*)sharedInstance
 {
-    static RPHTTPSessionManager *sharedInstance = nil;
+    static PPRHTTPSessionManager *sharedInstance = nil;
     
     dispatch_once(&onceToken, ^{
         sharedInstance = [[[self class] alloc] init];
@@ -56,10 +50,7 @@ static dispatch_once_t onceToken = 0;
 }
 
 
-
-#pragma mark -
-#pragma mark Object Life Cycle Methods
-
+#pragma mark - Object Life Cycle Methods
 
 
 - (instancetype)init
@@ -75,39 +66,12 @@ static dispatch_once_t onceToken = 0;
 }
 
 
-/*- (instancetype)initWithBaseURL:(NSURL *)url
-{
-    self = [super initWithBaseURL:url];
-    
-    if (self)
-    {
-        NSURL* lBaseURL = [NSURL URLWithString:kDealabsRootURL];
-        self = [super initWithBaseURL:lBaseURL
-                 sessionConfiguration:nil];
-        
-        self.requestSerializer = [[RPWatchRequestSerialization alloc] initWithKey:koAuthKey secret:koAuthSecret];
-        
-        self.securityPolicy = [AFSecurityPolicy policyWithPinningMode:AFSSLPinningModeCertificate];
-        self.securityPolicy.allowInvalidCertificates = YES;
-        //self.securityPolicy.validatesCertificateChain = NO;
-        
-        
-        [self.operationManagerDelegates addObject:[RPSessionLogManager sharedInstance]];
-    }
-    
-    return self;
-}*/
-
-
-
-#pragma mark -
-#pragma mark Data Management Methods
-
+#pragma mark - Data Management Methods
 
 
 + (void)cancelRequestWithMethod:(NSString*)_Method url:(NSString*)_URL
 {
-    RPHTTPSessionManager* lSessionManager = [RPHTTPSessionManager sharedInstance];
+    PPRHTTPSessionManager* lSessionManager = [PPRHTTPSessionManager sharedInstance];
     
     [[lSessionManager session] getTasksWithCompletionHandler:^(NSArray *dataTasks, NSArray *uploadTasks, NSArray *downloadTasks)
      {
@@ -123,12 +87,10 @@ static dispatch_once_t onceToken = 0;
 }
 
 
-
-#pragma mark -
-#pragma mark HTTP Operation Methods
+#pragma mark - HTTP Operation Methods
 
 
-
+#warning REWORK THIS WITH AF 3.0 METHOD
 - (NSURLSessionDataTask *)dataTaskWithHTTPMethod:(NSString *)method
                                        URLString:(NSString *)URLString
                                       parameters:(id)parameters
@@ -163,7 +125,7 @@ static dispatch_once_t onceToken = 0;
                         
                         for(id anObject in _operationManagerDelegates)
                         {
-                            if ([anObject conformsToProtocol:@protocol(RPHTTPManagerDelegate)])
+                            if ([anObject conformsToProtocol:@protocol(PPRHTTPManagerDelegate)])
                             {
                                 lHandled = [anObject isHandledReequestDidFail:request
                                                                  httpResponse:(NSHTTPURLResponse*)response
@@ -177,6 +139,7 @@ static dispatch_once_t onceToken = 0;
                         {
                             if (lHandled)
                             {
+#warning replace ERROR
                                 NSError *lError = [NSError errorWithDomain:@"RPNetworkingErrorDomain"
                                                                       code:409
                                                                   userInfo:nil];
@@ -200,7 +163,7 @@ static dispatch_once_t onceToken = 0;
                     {
                         for(id anObject in _operationManagerDelegates)
                         {
-                            if ([anObject conformsToProtocol:@protocol(RPHTTPManagerDelegate)])
+                            if ([anObject conformsToProtocol:@protocol(PPRHTTPManagerDelegate)])
                             {
                                 [anObject requestDidSucceed:request
                                                httpResponse:(NSHTTPURLResponse*)response
