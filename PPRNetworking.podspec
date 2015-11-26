@@ -1,5 +1,5 @@
 #
-#  Be sure to run `pod spec lint RPNetworking.podspec' to ensure this is a
+#  Be sure to run `pod spec lint PPRNetworking.podspec' to ensure this is a
 #  valid spec and to remove all comments including this before submitting the spec.
 #
 #  To learn more about Podspec attributes see http://docs.cocoapods.org/specification.html
@@ -15,12 +15,12 @@ Pod::Spec.new do |s|
   #  summary should be tweet-length, and the description more in depth.
   #
 
-  s.name         = "RPNetworking"
+  s.name         = "PPRNetworking"
   s.version      = "3.0.0"
   s.summary      = "OAuth1 AFNetworking overlay that add request cancelling methods and operation delegates"
 
   s.description  = <<-DESC
-                   A longer description of RPNetworking in Markdown format.
+                   A longer description of PPRNetworking in Markdown format.
 
                    * Think: Why did you write this? What is the focus? What does it do?
                    * CocoaPods will be using this to generate tags, and improve search results.
@@ -28,7 +28,7 @@ Pod::Spec.new do |s|
                    * Finally, don't worry about the indent, CocoaPods strips it!
                    DESC
 
-  s.homepage     = "https://github.com/rapinto/RPNetworking"
+  s.homepage     = "https://github.com/rapinto/PPRNetworking"
   # s.screenshots  = "www.example.com/screenshots_1.gif", "www.example.com/screenshots_2.gif"
 
 
@@ -74,26 +74,26 @@ Pod::Spec.new do |s|
   #  Supports git, hg, bzr, svn and HTTP.
   #
 
-    s.source = { :git => "https://github.com/rapinto/RPNetworking.git", :tag => s.version, :submodules => true }
+    s.source = { :git => "https://github.com/rapinto/PPRNetworking.git", :tag => s.version, :submodules => true }
 
 
   # ――― Source Code ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
 
-    s.public_header_files = 'Classes/RPNetworking.h'
-    s.source_files = 'Classes/RPNetworking.h'
+    s.public_header_files = 'Classes/PPRNetworking.h'
+    s.source_files = 'Classes/PPRNetworking.h'
 
 
   # ――― Sub Specs ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
 
     s.subspec 'SessionManager' do |ss|
-        ss.source_files = 'Classes/RPHTTPSessionManager.{h,m}'
-        ss.public_header_files = 'Classes/RPHTTPSessionManager.h'
-        ss.dependency 'RPNetworking/ManagerDelegate'
+        ss.source_files = 'Classes/PPRHTTPSessionManager.{h,m}'
+        ss.public_header_files = 'Classes/PPRHTTPSessionManager.h'
+        ss.dependency 'PPRNetworking/ManagerDelegate'
     end
 
     s.subspec 'ManagerDelegate' do |ss|
-        ss.source_files = 'Classes/RPHTTPManagerDelegate.h'
-        ss.public_header_files = 'Classes/RPHTTPManagerDelegate.h'
+        ss.source_files = 'Classes/PPRHTTPManagerDelegate.h'
+        ss.public_header_files = 'Classes/PPRHTTPManagerDelegate.h'
     end
 
 
@@ -105,6 +105,6 @@ Pod::Spec.new do |s|
 
     s.requires_arc = true
 
-    s.dependency "AFNetworking", '~> 3.0'
+    s.dependency 'AFNetworking', '~> 3.0'
 
 end

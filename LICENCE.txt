@@ -1,4 +1,4 @@
-RPNetworking
+PPRNetworking
 
 Version 3.0.0, July 24th, 2015
 
